@@ -271,8 +271,8 @@ def minimum_mewtations(typed, source, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-    if ___________: # Base cases should go here, you may add more base cases as needed.
+    #assert False, 'Remove this line'
+    """if ___________: # Base cases should go here, you may add more base cases as needed.
         # BEGIN
         "*** YOUR CODE HERE ***"
         # END
@@ -287,7 +287,8 @@ def minimum_mewtations(typed, source, limit):
         substitute = ...
         # BEGIN
         "*** YOUR CODE HERE ***"
-        # END
+        # END"""
+        
 
 
 # Ignore the line below
@@ -332,7 +333,15 @@ def report_progress(typed, source, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    ans=0
+    for i in range(len(typed)):
+        if typed[i]==source[i]:
+            ans+=1
+        else:
+            break
+    ans=ans/len(source)
+    upload({'id':user_id,'progress':ans})
+    return ans
     # END PROBLEM 8
 
 
@@ -357,6 +366,10 @@ def time_per_word(words, timestamps_per_player):
     tpp = timestamps_per_player  # A shorter name (for convenience)
     # BEGIN PROBLEM 9
     times = []  # You may remove this line
+    for i in range(len(tpp)):
+        t=[(tpp[i][x+1]-tpp[i][x]) for x in range(len(tpp[i])-1)]
+        times.append(t)
+
     # END PROBLEM 9
     return {'words': words, 'times': times}
 
@@ -385,6 +398,23 @@ def fastest_words(words_and_times):
     word_indices = range(len(words))    # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    player_ans=[]
+    for i in player_indices:
+        player_ans.append([])
+    for i in word_indices:
+        tartime=get_time(times,0,i)
+        tarindex=0
+        for j in player_indices:
+            if tartime>get_time(times,j,i):
+                tartime=get_time(times,j,i)
+                tarindex=j
+            #elif tartime==get_time(times,j,i):
+             #   if len(player_ans[j])<len(player_ans[tarindex]):
+             #       tarindex=j
+        player_ans[tarindex].append(words[i])
+    return player_ans
+        
+                 
     # END PROBLEM 10
 
 
